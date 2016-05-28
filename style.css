@@ -1,0 +1,126 @@
+body {
+    background-color: lightcyan;
+}
+
+h1 {
+    padding: 36px;;
+    color: #800000;
+    font-family: SansSerif, sans-serif;
+}
+
+h3 {
+    color: #191970;
+    font-family: SansSerif,sans-serif
+}
+
+.sisu {
+    background-color: azure;
+    max-width: 1000px;
+    min-width: 600px;
+    margin:auto;
+}
+
+
+.menu {
+    position: fixed;
+    top:0;
+    width:100%;
+    background-color: navy;
+    list-style-type: none;
+    margin:0;
+    max-width: 1000px;
+    min-width: 600px;
+    padding: 0;
+    overflow: hidden;
+    font-family: SansSerif, sans-serif;
+}
+
+.menu_link {
+    float: left;
+    color: azure;
+    border-right: 1px solid azure;
+    display: block;
+    text-align: center;
+    padding:14px 16px;
+    text-decoration: none;
+    font-family: SansSerif, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.menu_link:hover {
+    text-decoration: underline;
+    background-color: silver;
+}
+
+.lingid {
+    color: darkgreen;
+}
+
+.lingid:hover {
+    font-weight: bold;
+    color: dimgrey;
+}
+
+.sisu_tekst {
+    font-size: 14px;
+    font-family: SansSerif, sans-serif;
+}
+
+#tekst {
+    color: maroon;
+    font-size: 18px;
+    font-family: SansSerif, sans-serif;
+}
+
+.pilt {
+    border: double;
+}
+
+#validator_logo {
+    border: none;
+}
+
+#taust{ /* taust, mis peidab lehe sisu */
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.7);
+    z-index:5;
+}
+#tabel{ /* toob suure pildi esile ja määrab kuvamise ala tabelina */
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin:0 auto;
+    z-index: 10;
+    display:table;
+    width:100%;
+    height:100%;
+    color:white;
+}
+#cell{ /* paigutab pildi ja teksti vertikaalselt keskele nagu tabelivälja */
+    display:table-cell;
+    vertical-align:middle;
+}
+#sisu { /* teeb pildi ümbruse kitsamaks ja annab tausta */
+    display: table;
+    margin: auto;
+    background: rgba(0,0,0,0.7);
+    padding: 10px;
+}
+#sulge { /* sulgemise element */
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 15;
+    padding:4px;
+    font-weight: bold;
+}
+#hoidja {  /* ümbritseb kogu suure pildi elementide hulka 0px kõrgusena, et teised elemendid taga oleks kasutatavad*/
+    height: 0px;
+}
