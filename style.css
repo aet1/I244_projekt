@@ -22,14 +22,10 @@ h3 {
 
 
 .menu {
-    position: fixed;
-    top:0;
-    width:100%;
+    display: flex;
     background-color: navy;
     list-style-type: none;
     margin:0;
-    max-width: 1000px;
-    min-width: 600px;
     padding: 0;
     overflow: hidden;
     font-family: SansSerif, sans-serif;
@@ -48,10 +44,53 @@ h3 {
     font-size: 20px;
 }
 
+.session_link {
+    position: absolute;
+    right: 0px;
+    padding: 10px;
+    color: azure;
+    border-left: 1px solid azure;
+    display: block;
+    text-align: center;
+    padding:14px 16px;
+    text-decoration: none;
+    font-family: SansSerif, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}
+
 .menu_link:hover {
     text-decoration: underline;
     background-color: silver;
 }
+
+.login {
+    margin:auto;
+    width: 35%;
+    position:relative;
+    top: 50px;
+    padding-bottom: 40px;
+    border: solid;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.registreeri {
+    margin:auto;
+    width: 35%;
+    position:relative;
+    top: 50px;
+    padding-bottom: 40px;
+    border: solid;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.small_text {
+     font-size: 10px;
+ }
+
+
 
 .lingid {
     color: darkgreen;

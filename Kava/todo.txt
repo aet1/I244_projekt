@@ -1,8 +1,0 @@
-Esialgses kavas 5 vaadet
-1. Esileht - tutvustav tekst + login ja registreerumislink
-2. Head and foot, mis jäävad igas vaates samaks
-3. Registreerimise vorm
-4. Sisselogimise vorm
-5. Registreeritud kasutaja vaade - väljalogimise link, sql päringuga näidata viimaseid trenne
-5. Trennide vaade - lisamenüü vasakusse äärde + päringu tulemuste esitlus
-6. Trenni lisamise vorm

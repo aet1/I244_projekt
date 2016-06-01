@@ -1,29 +1,37 @@
 <?php
-require_once ("views/head.html");
+require_once ('funktsioonid.php');
+session_start();
+connect_db();
 
-if (!empty($_GET["mode"])) {
-    $mode = $_GET["mode"];
-} else {
-    $mode = "pealeht";
+$page="login";
+
+if (isset($_GET['page']) && $_GET['page']!=""){
+    $page=htmlspecialchars($_GET['page']);
+
 }
-switch ($mode) {
-    case 'pealeht':
-        include("pealeht.php");
-        break;
+include_once ("views/head.html");
+
+switch ($page) {
     case 'login':
-        include("views/login.php");
+        login();
+        break;
+    case 'sisselogitud':
+        sisselogitud();
         break;
     case 'registreeri':
-        include("views/registreeri.html");
+        registreeri();
         break;
     case 'trennid':
-        include("views/trennid.html");
+        trennid();
+        break;
+    case 'lisa_trenn':
+        lisa_trenn();
         break;
     default:
-        include("pealeht.php");
+        login();
         break;
 }
 
 
-require_once("views/foot.html");
+include_once("views/foot.html");
 ?>
