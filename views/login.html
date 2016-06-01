@@ -1,9 +1,12 @@
+
+<div class="pealkiri">Trennipäevik</div>
 <div class="login">
-    <form action="?page=login" method="POST" >
-        <input type="text" name="user" placeholder="kasutajanimi"/><br/>
-        <input type="password" name="pass" placeholder="parool"/><br/>
-        <input type="submit" value="Logi sisse!"/>
-        <a class="small_text" href="views/registreeri.html"><p>Registreeri kasutajaks</p></a>
+    <div class="login-triangle"></div>
+    <h2 class="login-header">Logi sisse</h2>
+    <form class = "login-container" action="?page=login" method="POST" >
+        <input type="text" name="user" placeholder="kasutajanimi"><br/>
+        <input type="password" name="pass" placeholder="parool"><br/>
+        <input type="submit" value="Logi sisse!">
 
     </form>
     <?php if (isset($errors)):?>

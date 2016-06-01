@@ -4,14 +4,45 @@
 		header("Location: ?page=login");
 	 }
 ?>
-<h1>Sinu trennid</h1>
-<br>
 
-<div class="sisu">
+<table id="trennid" class="tabel">
+    <caption>Trennid</caption>
+
+    <tr>
+        <th>Ala nimetus</th>
+        <th>Kuupäev</th>
+        <th>Kestvus</th>
+        <th>Distants</th>
+        <th>Asukoht</th>
+        <th>Kommentaar</th>
+    <tr>
 
 
-    <td><input id="<?php echo $trenn['id']; ?>"/></td>
+    <tbody>
 
-    ?>
+    <?php if (!empty($trennid)): ?>
+    <?php foreach ($trennid as $id=>$trenn): ?>
+    <tr>
+        <td>
+            <?= htmlspecialchars($trenn['ala']); ?>
+        </td>
+        <td>
+            <?= htmlspecialchars($trenn['kuup']); ?>
+        </td>
+        <td>
+            <?= htmlspecialchars$trenn['kestus']; ?>
+        </td>
+        <td>
+            <?= htmlspecialchars($trenn['asukoht']); ?>
+        </td>
+        <td>
+            <?= htmlspecialchars($trenn['kommentaar']); ?>
+        </td>
+        <td>
 
-</div>
+
+    </tr>
+    <?php endforeach; ?>
+    <?php endif; ?>
+    </tbody>
+</table>
