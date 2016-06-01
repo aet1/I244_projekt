@@ -83,8 +83,7 @@ function trennid() {
 }
 
 function lisa_trenn()
-{   include ('views/head.html');
-    include('views/menu.html');
+{   include('views/menu.html');
     global $connection;
     $errors = array();
     if (!isset($_SESSION['user'])) {
