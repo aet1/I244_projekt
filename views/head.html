@@ -10,13 +10,10 @@
             <a class="menu_link" href="views/avaleht.html">Avaleht</a>
             <a class="menu_link" href="views/trennid.html">Minu trennid</a>
             <a class="menu_link" href="views/lisa_trenn.html">Lisa trenn</a>
-            <?php if(!isset($_SESSION['id'])): ?>
-            <a class="session_link" href="?page=login">Logi sisse</a>
-            <?php else: ?>
-            <a class="session_right" href="?page=logout">Logi välja</a>
+            <?php if(isset($_SESSION['user'])): ?>
+            <a class="session_link" href="?page=logout">Logi välja</a>
             <?php endif; ?>
         </li>
     </ul>
 </head>
 <body>
-

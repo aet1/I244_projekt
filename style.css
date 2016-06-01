@@ -64,15 +64,19 @@ h3 {
     background-color: silver;
 }
 
-.login {
-    margin:auto;
-    width: 35%;
+#login {
+
     position:relative;
     top: 50px;
     padding-bottom: 40px;
     border: solid;
     border-radius: 5px;
     text-align: center;
+    display: inline-block;
+    width: 100%;
+    padding:235px 0px;
+    text-align: center;
+
 }
 
 .registreeri {
@@ -87,8 +91,8 @@ h3 {
 }
 
 .small_text {
-     font-size: 10px;
- }
+    font-size: 10px;
+}
 
 
 

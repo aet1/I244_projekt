@@ -13,33 +13,23 @@ function connect_db(){
 
 function login(){
     global $connection;
-    if(!empty($_SESSION["username"])) {
-        header("Location: pealeht.php?page=sisselogitud");
-    } else {
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if($_POST["password"] == '' || $_POST["username"] == '') {
-                $errors = array();
-                if(empty($_POST["username"])) {
-                    $errors[] = "Sisesta kasutajanimi!";
-                }
-                if(empty($_POST["password"]))
-                    $errors[] = "Sisesta parool!";
-            } else {
-                $kasutaja = mysqli_real_escape_string ($connection, $_POST["username"]);
-                $parool = mysqli_real_escape_string ($connection, $_POST["password"]);
-                $query = "SELECT id FROM audusaar_trenn_kasutajad WHERE username='$kasutaja' AND passw=SHA1('$parool')";
-                $result = mysqli_query($connection, $query);
-                $row = mysqli_num_rows($result);
-                if($row) {
-                    $_SESSION["username"] = $_POST["username"];
-                    header("Location: pealeht.php?page=sisselogitud");
-                } else {
-                    header("Location: ?page=login");
-                }
-            }
-        }
+    $errors = array();
+    if (isset($_SESSION['user'])) {
+        sisselogitud();
+    } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (empty($_POST['user'])) $errors['no_username'] = "Sisesta kasutajanimi!";
+        if (empty($_POST['pass'])) $errors['no_password'] = "Sisesta parool!";
+        $username = mysqli_real_escape_string($connection, $_POST['user']);
+        $password = mysqli_real_escape_string($connection, $_POST['pass']);
+        $query_user = "SELECT username FROM audusaar_trenn_kasutajad WHERE username = '".$username."' AND passw = SHA1('".$password."')";
+        $result = mysqli_query($connection, $query_user);
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $_SESSION['user'] = $row['username'];
+            header("Location: ?page=sisselogitud");
+        } else $errors['vale'] = "Vale kasutajanimi v�i parool";
     }
-    include_once('views/login.html');
+
 }
 
 function registreeri() {
@@ -63,7 +53,7 @@ function registreeri() {
             $errors[] = "Palun korda parooli!";
         }
         if (!empty($_POST['parool']) && !empty($_POST['parool2']) && $_POST['parool'] != $_POST['parool2']) {
-            $errors[] = "Paroolid peavad olema ühesugused!";
+            $errors[] = "Paroolid peavad olema �hesugused!";
         }
         if (empty($errors)) {
             $eesn = mysqli_real_escape_string($connection, $_POST['eesnimi']);
@@ -76,24 +66,28 @@ function registreeri() {
                 $errors[] = "Selline kasutaja on juba olemas.";
             }
             if (empty($errors)) {
-                $query = mysqli_query($connection, "INSERT INTO audusaar_trenn_kasutajad (id, eesnimi, perenimi, username, passw) VALUES ('', '$eesn', '$peren', '$kasutaja', SHA1('$passw'))");
+                $query = mysqli_query($connection, "INSERT INTO audusaar_trenn_kasutajad (id, eesnimi, perenimi, username, passw) VALUES ('', '$kasutaja', SHA1('$passw'), '$eesn', '$peren')");
                 header("Location: ?page=avaleht");
                 exit(0);
             } else {
-                $errors[] = "Registreerumine ebaõnnestus.";
+                $errors[] = "Registreerumine eba�nnestus.";
             }
         }
     }
-    include_once("views/head.html");
+
     include("views/registreeri.html");
-    include_once("views/foot.html");
+
 }
 
+
 function sisselogitud() {
-    if (!isset($_SESSION['user'])) {
-        header("Location: pealeht.php?page=login");
-    } else {
-        include_once('views/avaleht.html');
+    global $connection;
+    if (!isset($_SESSION['user']))
+        header("Location: ?page=login"); else {
+        include('views/head.html');
+        include('views/avaleht.html');
+        include('views/foot.html');
+
     }
 }
 
@@ -107,21 +101,47 @@ function logout(){
 }
 
 function trennid() {
+    include_once("views/head.html");
     global $connection;
-    if(isset($_SESSION['id'])) {
-        $user_id = $_SESSION['id'];
-        $sql_query = "SELECT * FROM 'audusaar_trennid' WHERE user_id=$user_id";
+    if(isset($_SESSION['user'])) {
+        $kasutaja = $_SESSION['user'];
+        $sql_query = "SELECT * FROM 'audusaar_trennid' WHERE user=$kasutaja";
         $trennid = mysqli_query($connection , $sql_query) or die(mysqli_error($connection));
         include('views/trennid.html');
     } else {
         header("Location: ?page=login");
     }
+    include_once("views/foot.html");
 }
 
 function lisa_trenn() {
-    global $connect;
-    $uus_trenn = mysqli_real_escape_string($connect, $_POST["uus_trenn"]);
-    $sql = "INSERT INTO audusaar_trennid VALUES ";
-    mysqli_query($connect, $sql);
+    global $connection;
+    include_once("views/head.html");
+    include('views/lisa_trenn.html');
+    include_once("views/foot.html");
+    if (!isset($_SESSION['user']))
+        header("Location: ?page=login");
+     else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (empty($_POST['nimi'])) $errors['no_name'] = "Sisesta nimi!";
+        if (empty($_POST['puur'])) $errors['no_cage'] = "Sisesta puuri number!";
+        if (empty($_FILES['liik']['name'])) $errors['no_picture'] = "Sisesta pilt!";
+        $ala = mysqli_real_escape_string($connection, $_POST['ala']);
+        $kuup = mysqli_real_escape_string($connection, $_POST['kuup']);
+        $distants = mysqli_real_escape_string($connection, $_POST['distants']);
+        $kestus = mysqli_real_escape_string($connection, $_POST['kestus']);
+        $asukoht = mysqli_real_escape_string($connection, $_POST['asukoht']);
+        $kommentaar = mysqli_real_escape_string($connection, $_POST['kommentaar']);
 
+        $uus_trenn = "INSERT INTO audusaar_trennid (ala, kuup, distants, kestus, asukoht, kommentaar) VALUES ('$ala', '$kuup', '$distants''$kestus','$asukoht','$kommentaar',)";
+        echo mysqli_insert_id($connection);
+        $result = mysqli_query($connection, $uus_trenn);
+        if (!$result) {
+            echo "eba�nnestus.";
+        } else {
+            trennid();
+        }
+        include_once('views/lisa_trenn.html');
+
+    }
+    include_once('views/lisa_trenn.html');
 }

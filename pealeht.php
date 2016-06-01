@@ -2,14 +2,10 @@
 require_once ('funktsioonid.php');
 session_start();
 connect_db();
-
-$page="login";
-
+$page="leht";
 if (isset($_GET['page']) && $_GET['page']!=""){
     $page=htmlspecialchars($_GET['page']);
-
 }
-include_once ("views/head.html");
 
 switch ($page) {
     case 'login':
@@ -27,11 +23,12 @@ switch ($page) {
     case 'lisa_trenn':
         lisa_trenn();
         break;
+    case "logout":
+        logout();
+        break;
     default:
-        login();
+        include_once("views/login.html");
         break;
 }
-
-
 include_once("views/foot.html");
 ?>

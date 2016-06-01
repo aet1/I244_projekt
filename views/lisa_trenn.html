@@ -1,0 +1,44 @@
+<?php 	if(isset($_SESSION["user"])) {
+
+	}else {
+		header("Location: ?page=login");
+	 }
+?>
+<h1>Lisa uus trenn</h1>
+<br>
+
+
+<div class="sisu">
+    <br>
+    <form method="POST" action="?page=lisa_trenn" enctype="multipart/form-data">
+
+        <table class="vorm">
+
+            <tr>
+                <td>Ala nimetus:</td>
+                <td><input type="text" name="ala" size="50" value="<?php if (isset($trenn['ala'])) echo htmlspecialchars($trenn['ala']); ?>"></td>
+            </tr>
+            <tr>
+                <td>Kuup�ev:</td>
+                <td><input type="date" name="kuup" size="50" value="<?php if (isset($trenn['kuup'])) echo htmlspecialchars($trenn['kuup']); ?>"></td>
+            </tr>
+            <tr>
+                <td>Distants:</td>
+                <td><input type="int" name="distants" size="50" value="<?php if (isset($trenn['distants'])) echo htmlspecialchars($trenn['distants']); ?>"></td>
+            </tr>
+            <td>Kestus:</td>
+            <td><input type="time" name="kestus" size="50" value="<?php if (isset($trenn['distants'])) echo htmlspecialchars($trenn['distants']); ?>"></td>
+            <tr>
+                <td>Asukoht:</td>
+                <td><input type="text" name="asukoht" size="50" value="<?php if (isset($trenn['asukoht'])) echo htmlspecialchars($trenn['asukoht']); ?>"></td>
+            </tr>
+            <tr>
+                <td>Kommentaar:</td>
+                <td><input type="text" name="kommentaar" size="50" value="<?php if (isset($trenn['kommentaar'])) echo htmlspecialchars($trenn['kommentaar']); ?>"></td>
+            </tr>
+            <tr>
+                <button type="submit">Salvesta</button>
+            </tr>
+        </table>
+    </form>
+</div>
