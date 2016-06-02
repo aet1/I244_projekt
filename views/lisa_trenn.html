@@ -1,18 +1,20 @@
+<?php
+if (!isset($_SESSION["user"])) {
+    header("Location: ?page=login");
+} ?>
 
 <h1>Lisa uus trenn</h1>
-<br>
-
-
 <div class="sisu">
     <br>
-    <form method="POST" action="?page=lisa_trenn">
+
+    <form method="POST" action="?page=lisa_trenn" accept-charset="UTF-8">
         Ala nimetus: <br>
         <input type="text" name="ala" size="50" value="<?php if (isset($trenn['ala'])) echo htmlspecialchars($trenn['ala']); ?>"><br>
         Kuupäev:<br>
         <input type="date" name="kuup" size="50" value="<?php if (isset($trenn['kuup'])) echo htmlspecialchars($trenn['kuup']); ?>"><br>
-        Distants:<br>
-        <input type="number" name="distants" min="0" max="200" size="50" value="<?php if (isset($trenn['distants'])) echo htmlspecialchars($trenn['distants']); ?>"><br>
-        Kestus:<br>
+        Distants (km):<br>
+        <input type="number" name="distants" min="0" max="200" step="0.1" size="50" value="<?php if (isset($trenn['distants'])) echo htmlspecialchars($trenn['distants']); ?>"><br>
+        Kestus (h):<br>
         <input type="number" name="kestus" size="50" min="0.5" max="24" value="<?php if (isset($trenn['kestus'])) echo htmlspecialchars($trenn['kestus']); ?>"><br>
         Asukoht:<br>
         <input type="text" name="asukoht" size="50" value="<?php if (isset($trenn['asukoht'])) echo htmlspecialchars($trenn['asukoht']); ?>"><br>

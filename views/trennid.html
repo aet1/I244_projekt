@@ -1,38 +1,42 @@
+<?php
+if (!isset($_SESSION["user"])) {
+    header("Location: ?page=login");
+} ?>
 <table id="trennid" class="tabel">
     <caption>Trennid</caption>
     <tr>
         <th>Ala nimetus</th>
         <th>Kuupäev</th>
-        <th>Kestvus</th>
-        <th>Distants</th>
+        <th>Kestvus (h)</th>
+        <th>Distants (km)</th>
         <th>Asukoht</th>
         <th>Kommentaar</th>
     <tr>
-    <tbody>
-    <?php if (!empty($trennid)): ?>
-    <?php foreach ($trennid as $trenn): ?>
-    <tr>
-        <td>
-            <?= htmlspecialchars($trenn['ala']); ?>
-        </td>
-        <td>
-            <?= htmlspecialchars($trenn['kuup']); ?>
-        </td>
-        <td>
-            <?= $trenn['kestus']; ?>
-        </td>
-        <td>
-            <?= $trenn['distants']; ?>
-        </td>
-        <td>
-            <?= htmlspecialchars($trenn['asukoht']); ?>
-        </td>
-        <td>
-            <?= htmlspecialchars($trenn['kommentaar']); ?>
-        </td>
-        <td>
-    </tr>
-    <?php endforeach; ?>
-    <?php endif; ?>
-    </tbody>
+        <tbody>
+        <?php if (!empty($trennid)): ?>
+        <?php foreach ($trennid as $trenn): ?>
+        <tr>
+            <td>
+                <?= htmlspecialchars($trenn['ala']); ?>
+            </td>
+            <td>
+                <?= htmlspecialchars($trenn['kuup']); ?>
+            </td>
+            <td>
+                <?= $trenn['kestus']; ?>
+            </td>
+            <td>
+                <?= $trenn['distants']; ?>
+            </td>
+            <td>
+                <?= htmlspecialchars($trenn['asukoht']); ?>
+            </td>
+            <td>
+                <?= htmlspecialchars($trenn['kommentaar']); ?>
+            </td>
+            <td>
+        </tr>
+        <?php endforeach; ?>
+        <?php endif; ?>
+        </tbody>
 </table>

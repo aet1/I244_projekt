@@ -1,6 +1,4 @@
 <?php
-
-
 function connect_db(){
     global $connection;
     $host="localhost";
@@ -10,7 +8,6 @@ function connect_db(){
     $connection = mysqli_connect($host, $user, $pass, $db) or die("ei saa ühendust mootoriga- ".mysqli_error());
     mysqli_query($connection, "SET CHARACTER SET UTF8") or die("Ei saanud baasi utf-8-sse - ".mysqli_error($connection));
 }
-
 function login(){
     global $connection;
     $errors = array();
@@ -44,22 +41,15 @@ function login(){
         }
     }
     include_once('views/login.html');
-
 }
-
-
 function sisselogitud() {
     global $connection;
-
     if (!isset($_SESSION['user']))
         header("Location: ?page=login"); else {
         include ('views/menu.html');
         include('views/avaleht.html');
-
     }
 }
-
-
 function logout(){
     $_SESSION=array();
     if (isset($_COOKIE[session_name()])) {
@@ -68,20 +58,17 @@ function logout(){
     session_destroy();
     header("Location: ?page=login");
 }
-
 function trennid() {
     include('views/menu.html');
-
     global $connection;
     if(isset($_SESSION['user'])) {
         $sql = "SELECT * FROM `audusaar_trennid`";
         $trennid = mysqli_query($connection , $sql) or die(mysqli_error($connection));
         include('views/trennid.html');
     } else {
-        include('views/avaleht.html');
+        header("Location: ?page=login");
     }
 }
-
 function lisa_trenn()
 {   include('views/menu.html');
     global $connection;
@@ -91,30 +78,29 @@ function lisa_trenn()
     } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($_POST['ala'] == '' && $_POST['kuup'] == '' && $_POST['kestus'] == '' && $_POST['asukoht'] == '') {
             $errors[] = "Ala, kuupäeva, kestvuse ja asukoha väljad peavad olema täidetud";
-            header("Location: ?page=lisa_trenn");
+            //header("Location: ?page=lisa_trenn");
         } else {
             if (empty($_POST['ala'])) $errors[] = "Sisesta ala nimetus!";
             if (empty($_POST['kuup'])) $errors[] = "Sisesta kuupäev!";
             if (empty($_POST['kestus'])) $errors[] = "Sisesta kestus!";
             if (empty($_POST['asukoht'])) $errors[] = "Sisesta asukoht!";
-            $ala = mysqli_real_escape_string($connection, $_POST['ala']);
-            $kuup = $_POST['kuup'];
-            $distants = $_POST['distants'];
-            $kestus = $_POST['kestus'];
-            $asukoht = mysqli_real_escape_string($connection, $_POST['asukoht']);
-            $kommentaar = mysqli_real_escape_string($connection, $_POST['kommentaar']);
-            $uus_trenn = "INSERT INTO audusaar_trennid (id, ala, kuup, distants, kestus, asukoht, kommentaar) VALUES (NULL , '$ala', '$kuup', '$distants', '$kestus', '$asukoht','$kommentaar')";
-
-            echo mysqli_insert_id($connection);
-            $result = mysqli_query($connection, $uus_trenn);
-            if (!$result) {
-                echo "<script> alert('Salvestamine ebaõnnestus'); </script>";
-            } else {
-                echo "<script> alert('Salvestatud!'); </script>";
+            if (empty($errors)) {
+                $ala = mysqli_real_escape_string($connection, $_POST['ala']);
+                $kuup = $_POST['kuup'];
+                $distants = $_POST['distants'];
+                $kestus = $_POST['kestus'];
+                $asukoht = mysqli_real_escape_string($connection, $_POST['asukoht']);
+                $kommentaar = mysqli_real_escape_string($connection, $_POST['kommentaar']);
+                $uus_trenn = "INSERT INTO audusaar_trennid (id, ala, kuup, distants, kestus, asukoht, kommentaar) VALUES (NULL , '$ala', '$kuup', '$distants', '$kestus', '$asukoht','$kommentaar')";
+                echo mysqli_insert_id($connection);
+                $result = mysqli_query($connection, $uus_trenn);
+                if (!$result) {
+                    echo "<script> alert('Salvestamine ebaõnnestus'); </script>";
+                } else {
+                    echo "<script> alert('Salvestatud!'); </script>";
+                }
             }
         }
-
     }
     include_once('views/lisa_trenn.html');
-
 }
