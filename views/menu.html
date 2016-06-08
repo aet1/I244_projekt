@@ -1,0 +1,10 @@
+<ul class="menu">
+    <li>
+        <a class="menu_link" href="?page=sisselogitud">Avaleht</a>
+        <a class="menu_link" href="?page=trennid">Minu trennid</a>
+        <a class="menu_link" href="?page=lisa_trenn">Lisa trenn</a>
+        <?php if(isset($_SESSION['user'])): ?>
+        <a class="session_link" href="?page=logout">Logi välja</a>
+        <?php endif; ?>
+    </li>
+</ul>
