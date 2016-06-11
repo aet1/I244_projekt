@@ -4,7 +4,13 @@ $(document).ready(function(){
 
     });
 
-    $(".session_link").click(function(){
-        confirm("Kinnita, et soovid välja logida");
+    $(".session_link").click(function () {
+        var c = confirm("Kinnita, et soovid välja logida");
+        if (c) {
+            return true
+        } else {
+            return false;
+        }
     });
+
 });
